@@ -60,7 +60,7 @@ public class Dragon : MonoBehaviour
     private void SpawnHuman(){
         bool HumanSpawned = false;
         while(!HumanSpawned){
-            Vector3 HumanPos = new Vector3((Random.Range(-8, 8)), Random.Range(-3, 3), 0); // To spawn human at random position
+            Vector3 HumanPos = new Vector3((Random.Range(-8, 8) + 0.5f), Random.Range(-3, 3) + 0.5f, 0); // To spawn human at random position
             if((HumanPos - transform.position).magnitude < 3){
                 continue;
             }
