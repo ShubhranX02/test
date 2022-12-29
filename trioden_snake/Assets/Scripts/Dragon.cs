@@ -7,15 +7,16 @@ public class Dragon : MonoBehaviour
     private float movX = 1;
     private float movY = 0;
     public float speed = 1;
-
-    private GameObject Human_Placeholder;
+    
+    [SerializeField]
+    private GameObject Human;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-    
+       SpawnHuman();
     }
 
     // Update is called once per frame
@@ -60,7 +61,7 @@ public class Dragon : MonoBehaviour
                 continue;
             }
             else{
-                Instantiate(Human_Placeholder, HumanPos, Quaternion.identity);
+                Instantiate(Human, HumanPos, Quaternion.identity);
                 HumanSpawned = true;
             }
         }
