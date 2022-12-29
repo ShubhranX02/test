@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Dragon : MonoBehaviour
 {
+    public int score = 0;
     private float movX = 1;
     private float movY = 0;
     public float speed = 3;
 
-    public int score = 0;
+    
 
-    public Transform movePoint;
     
     [SerializeField]
     private GameObject Human;
@@ -26,6 +26,7 @@ public class Dragon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speed = 3f + score * 0.25f;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
