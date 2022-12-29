@@ -6,7 +6,11 @@ public class Dragon : MonoBehaviour
 {
     private float movX = 1;
     private float movY = 0;
-    public float speed = 1;
+    public float speed = 3;
+
+    public int score = 0;
+
+    public Transform movePoint;
     
     [SerializeField]
     private GameObject Human;
@@ -55,8 +59,8 @@ public class Dragon : MonoBehaviour
     }
     private void SpawnHuman(){
         bool HumanSpawned = false;
-        while(HumanSpawned == false){
-            Vector3 HumanPos = new Vector3(Random.Range(-10, 10), Random.Range(-5, 5), 0f); // To spawn human at random position
+        while(!HumanSpawned){
+            Vector3 HumanPos = new Vector3((Random.Range(-8, 8)), Random.Range(-3, 3), 0); // To spawn human at random position
             if((HumanPos - transform.position).magnitude < 3){
                 continue;
             }
@@ -70,5 +74,7 @@ public class Dragon : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         Destroy(collision.gameObject);
         SpawnHuman();
+        score++;
+        print(score);
     }
 }
