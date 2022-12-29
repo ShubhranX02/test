@@ -8,6 +8,8 @@ public class Dragon : MonoBehaviour
     private float movY = 0;
     public float speed = 1;
 
+    private GameObject Human_Placeholder;
+
 
 
     // Start is called before the first frame update
@@ -19,8 +21,8 @@ public class Dragon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
         if (h > 0) // Right
         {
@@ -49,5 +51,23 @@ public class Dragon : MonoBehaviour
         pos.y += Time.deltaTime * movY;
 
         transform.position = pos;
+    }
+    private void SpawnHuman(){
+        bool HumanSpawned = false;
+        while(HumanSpawned == false){
+            Vector3 HumanPos = new Vector3(Random.Range(-10, 10), Random.Range(-5, 5), 0f); // To spawn human at random position
+            if((HumanPos - transform.position).magnitude < 3){
+                continue;
+            }
+            else{
+                Instantiate(Human_Placeholder, HumanPos, Quaternion.identity);
+                HumanSpawned = true;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Destroy(collision.gameObject);
+        SpawnHuman();
     }
 }
