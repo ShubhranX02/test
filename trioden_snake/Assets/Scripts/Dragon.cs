@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dragon : MonoBehaviour
 {
@@ -9,24 +10,22 @@ public class Dragon : MonoBehaviour
     private float movY = 0;
     public float speed = 3;
 
-    
+    private string HUMAN_TAG = "Human";
 
-    
-    [SerializeField]
-    private GameObject Human;
+    public Text score_display;
 
-
+    public GameObject Human;
 
     // Start is called before the first frame update
     void Start()
     {
-       SpawnHuman();
+        SpawnHuman();
     }
 
     // Update is called once per frame
     void Update()
     {
-        speed = 3f + score * 0.25f;
+        speed = 3f + score * 0.01f;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -59,23 +58,20 @@ public class Dragon : MonoBehaviour
         transform.position = pos;
     }
     private void SpawnHuman(){
-        bool HumanSpawned = false;
-        while(!HumanSpawned){
-            Vector3 HumanPos = new Vector3((Random.Range(-8, 8) + 0.5f), Random.Range(-3, 3) + 0.5f, 0); // To spawn human at random position
-            if((HumanPos - transform.position).magnitude < 3){
-                continue;
-            }
-            else{
-                Instantiate(Human, HumanPos, Quaternion.identity);
-                HumanSpawned = true;
-            }
-        }
+        Vector2 HumanPos = new Vector2(); // To spawn human at random position
+
+        HumanPos.x = Random.Range(-8, 8);
+        HumanPos.y = Random.Range(-4, 4);
+
+        Human.transform.position = HumanPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        Destroy(collision.gameObject);
-        SpawnHuman();
-        score++;
-        print(score);
+        if (collision.gameObject.CompareTag(HUMAN_TAG))
+        {
+            SpawnHuman();
+            score++;
+            score_display.text = "" + score;
+        }
     }
 }
