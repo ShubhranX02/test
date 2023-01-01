@@ -60,8 +60,8 @@ public class Dragon : MonoBehaviour
     private void SpawnHuman(){
         Vector2 HumanPos = new Vector2(); // To spawn human at random position
 
-        HumanPos.x = Random.Range(-8, 8);
-        HumanPos.y = Random.Range(-4, 4);
+        HumanPos.x = Random.Range(-8, 8) + 0.5f;
+        HumanPos.y = Random.Range(-4, 4) + 0.5f;
 
         Human.transform.position = HumanPos;
     }
