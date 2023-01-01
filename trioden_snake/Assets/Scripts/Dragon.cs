@@ -25,7 +25,7 @@ public class Dragon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = 3f + score * 0.01f;
+        speed = 3f + score * 0.1f;
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -58,12 +58,17 @@ public class Dragon : MonoBehaviour
         transform.position = pos;
     }
     private void SpawnHuman(){
-        Vector2 HumanPos = new Vector2(); // To spawn human at random position
-
+        Vector3 HumanPos = new Vector2(); // To spawn human at random position
+        label:
         HumanPos.x = Random.Range(-8, 8) + 0.5f;
         HumanPos.y = Random.Range(-4, 4) + 0.5f;
-
-        Human.transform.position = HumanPos;
+        HumanPos.z = 0f;
+       if(HumanPos == transform.position){
+            goto label;
+        }
+        else{
+              Human.transform.position = HumanPos;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
